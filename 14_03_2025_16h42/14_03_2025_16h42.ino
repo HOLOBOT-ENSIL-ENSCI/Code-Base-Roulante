@@ -36,6 +36,16 @@ public:
         pinMode(dir_pin_B, OUTPUT);
     }
 
+/**
+ * @brief Définit la vitesse du moteur.
+ * 
+ * Cette fonction ajuste la vitesse du moteur en fonction de la valeur donnée. Elle prend en compte l'inversion de direction 
+ * si nécessaire, et ajuste les signaux PWM pour contrôler la vitesse du moteur. La vitesse est limitée entre 0 et 255 pour 
+ * correspondre à l'intensité PWM.
+ * 
+ * @param speed La vitesse souhaitée du moteur. La valeur peut être négative pour inverser la direction. Elle va de -1 à 1.
+ */
+
     void set_speed(float speed) {
         if (invert) speed = -speed; // Inversion si nécessaire
         
@@ -99,11 +109,26 @@ void loop() {
     encoder_FL = encoder_RL = encoder_RR = encoder_FR = 0;
 
     // Démarrage des moteurs avec une vitesse initiale de 80%
-    motorFL.set_speed(0.8);
-    motorRL.set_speed(0.8);
-    motorRR.set_speed(0.8);
-    motorFR.set_speed(0.8);
+    motorFL.set_speed(100);
+    motorRL.set_speed(100);
+    motorRR.set_speed(100);
+    motorFR.set_speed(100);
 
+    delay(4000);
+
+    motorFL.stop();
+    motorRL.stop();
+    motorRR.stop();
+    motorFR.stop();
+
+    motorFL.set_speed(-100);
+    motorRL.set_speed(-100);
+    motorRR.set_speed(-100);
+    motorFR.set_speed(-100);
+
+    delay(4000);
+
+/*
     // Distance parcourue initiale
     int avg_ticks = 0;
 
@@ -135,7 +160,7 @@ void loop() {
 
         delay(100);
     }
-
+*/
     // Arrêt des moteurs après avoir atteint la distance
     motorFL.stop();
     motorRL.stop();
